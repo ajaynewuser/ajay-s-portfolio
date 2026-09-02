@@ -65,16 +65,17 @@
 
   /* ── LAYOUT ── */
   main { position: relative; z-index: 1; }
-  section { min-height: 100vh; padding: 110px 40px 80px; max-width: 1000px; margin: 0 auto; }
+  section { padding: 90px 40px; max-width: 1000px; margin: 0 auto; }
 
   /* ── HERO ── */
-  #hero { display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--nav-h) + 60px); }
+  #hero { display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--nav-h) + 70px); padding-bottom: 70px; max-width: 1140px; }
+  .hero-inner { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
   .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 6px 16px; font-size: 11px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; width: fit-content; backdrop-filter: blur(10px); animation: fadeUp 0.6s ease both; }
   .hero-badge::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
-  .hero-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(48px, 11vw, 92px); line-height: 0.95; letter-spacing: -2px; margin-bottom: 20px; animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(48px, 8vw, 92px); line-height: 0.95; letter-spacing: -2px; margin-bottom: 20px; animation: fadeUp 0.6s 0.1s ease both; }
   .hero-name span { background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero-sub { font-size: clamp(14px, 3vw, 18px); color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 36px; font-weight: 300; animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-sub { font-size: clamp(14px, 2.4vw, 18px); color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 36px; font-weight: 300; animation: fadeUp 0.6s 0.2s ease both; }
   .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
   .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #060d1f; font-weight: 700; font-size: 14px; padding: 13px 28px; border-radius: 30px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 0 30px rgba(56,245,192,0.3); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(56,245,192,0.45); }
@@ -84,6 +85,39 @@
   .stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 36px); background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; margin-top: 2px; }
   @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+  /* HERO IMAGE BOX */
+  .hero-visual { position: relative; animation: fadeUp 0.7s 0.25s ease both; }
+  .hero-photo-frame {
+    position: relative; width: 100%; aspect-ratio: 1 / 1.05; border-radius: 24px;
+    background: linear-gradient(160deg, rgba(91,143,255,0.14), rgba(56,245,192,0.08));
+    border: 1px solid var(--glass-border); backdrop-filter: blur(16px);
+    overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  }
+  .hero-photo-frame img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .hero-photo-frame .photo-placeholder {
+    width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; color: var(--muted); text-align: center; padding: 24px;
+  }
+  .hero-photo-frame .photo-placeholder svg { width: 56px; height: 56px; opacity: 0.5; }
+  .hero-photo-frame .photo-placeholder span { font-size: 12px; letter-spacing: 0.5px; }
+  .hero-photo-frame::before {
+    content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1px;
+    background: linear-gradient(160deg, rgba(56,245,192,0.35), transparent 40%, rgba(91,143,255,0.25));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .hero-visual-glow { position: absolute; inset: -30px; z-index: -1; background: radial-gradient(circle at 50% 40%, rgba(56,245,192,0.18), transparent 65%); filter: blur(10px); }
+  .hero-visual-badge {
+    position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+    background: rgba(6,13,31,0.85); border: 1px solid var(--glass-border); backdrop-filter: blur(14px);
+    border-radius: 30px; padding: 10px 22px; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35); white-space: nowrap;
+  }
+  .hero-visual-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  .hero-visual-badge span { font-size: 12px; font-weight: 500; color: var(--text); }
 
   .sec-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
   .sec-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 48px); line-height: 1.05; letter-spacing: -1px; margin-bottom: 36px; }
@@ -132,7 +166,7 @@
   /* EDUCATION */
   #education { display: flex; flex-direction: column; justify-content: center; }
   .edu-card { display: flex; gap: 22px; align-items: flex-start; padding: 24px 28px; margin-bottom: 14px; }
-  .edu-year { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 12px; color: var(--accent); min-width: 80px; padding-top: 3px; flex-shrink: 0; }
+  .edu-year { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 12.5px; letter-spacing: 0.5px; color: var(--accent); min-width: 80px; padding-top: 3px; flex-shrink: 0; }
   .edu-degree { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
   .edu-school { font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
   .edu-grade { display: inline-block; background: rgba(56,245,192,0.1); border: 1px solid rgba(56,245,192,0.25); color: var(--accent); font-size: 11px; padding: 3px 11px; border-radius: 12px; font-weight: 600; }
@@ -161,6 +195,11 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ══ RESPONSIVE ══ */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { order: -1; max-width: 340px; margin: 0 auto 20px; }
+  }
+
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
@@ -188,6 +227,7 @@
     .cert-item { padding: 14px 16px; }
     .hero-stats { gap: 16px; }
     .contact-grid { grid-template-columns: 1fr; }
+    .hero-visual { max-width: 260px; }
   }
 
   @media (max-width: 360px) {
@@ -234,17 +274,39 @@
 <main>
 
 <section id="hero">
-  <div class="hero-badge">Available for opportunities</div>
-  <h1 class="hero-name"><span>Ajay S</span></h1>
-  <p class="hero-sub">Full Stack Developer crafting high-performance web applications, e-commerce platforms, and community spaces — with 2+ years of hands-on production experience.</p>
-  <div class="hero-ctas">
-    <a href="#experience" class="btn-primary">View My Work</a>
-    <a href="#contact" class="btn-ghost">Get In Touch</a>
-  </div>
-  <div class="hero-stats">
-    <div><div class="stat-num">35+</div><div class="stat-label">Live Websites</div></div>
-    <div><div class="stat-num">2+</div><div class="stat-label">Years Experience</div></div>
-    <div><div class="stat-num">99%</div><div class="stat-label">Uptime</div></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-badge">Available for opportunities</div>
+      <h1 class="hero-name"><span>Ajay S</span></h1>
+      <p class="hero-sub">Full Stack Developer crafting high-performance web applications, e-commerce platforms, and community spaces — with 2+ years of hands-on production experience.</p>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-ghost">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">40+</div><div class="stat-label">Live Websites</div></div>
+        <div><div class="stat-num">5+</div><div class="stat-label">Web Apps Built</div></div>
+        <div><div class="stat-num">2+</div><div class="stat-label">Yrs Experience</div></div>
+        <div><div class="stat-num">99%</div><div class="stat-label">Uptime</div></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-visual-glow"></div>
+      <div class="hero-photo-frame">
+        <!-- Replace the placeholder below with:-->
+
+             <img src="/Imagesnew/ajay.jpg" alt="Ajay S"> 
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+          </svg>
+          <span>YOUR PHOTO HERE<br/>(add src to &lt;img&gt;)</span>
+        </div>
+      </div>
+      <div class="hero-visual-badge"><span class="dot"></span><span>Full Stack Developer</span></div>
+    </div>
   </div>
 </section>
 
@@ -256,7 +318,7 @@
       <br/>
       <p>I believe in <strong>continuous learning</strong>, best practices, and delivering solutions that truly work for people — on every device, every browser, every time.</p>
     </div>
-    <div class="glass-card info-item reveal"><span class="label">Location</span><span class="value">Bengaluru, Karnataka, India.</span></div>
+    <div class="glass-card info-item reveal"><span class="label">Location</span><span class="value">Bengaluru, Karnataka</span></div>
     <div class="glass-card info-item reveal"><span class="label">Status</span><span class="value" style="color:var(--accent)">Open to Opportunities</span></div>
     <div class="glass-card info-item reveal"><span class="label">Education</span><span class="value">BCA – 8.73 CGPA</span></div>
     <div class="glass-card info-item reveal"><span class="label">Languages</span><span class="value">English · Kannada · Tamil · Hindi</span></div>
@@ -282,7 +344,7 @@
     <div class="exp-role">Full Stack Developer</div>
     <div class="exp-company">Angika Technologies · Bengaluru, India</div>
     <ul class="exp-bullets">
-      <li>Developed and deployed 15+ production websites ensuring 99%+ uptime, optimal performance, and robust security.</li>
+      <li>Developed and deployed 40+ production websites ensuring 99%+ uptime, optimal performance, and robust security.</li>
       <li>Built 5+ Shopify e-commerce stores with custom themes and payment gateway integrations.</li>
       <li>Developed 5+ community platforms using BuddyBoss with custom plugins and third-party API integrations.</li>
       <li>Engineered 5+ web apps using PHP Laravel with Livewire, reducing page load time by up to 35%.</li>
@@ -299,17 +361,16 @@
   <div class="ach-grid">
     <div class="glass-card ach-card reveal"><div class="ach-icon">🚀</div><div class="ach-num">40+</div><div class="ach-desc">Production websites with zero critical post-launch security incidents</div></div>
     <div class="glass-card ach-card reveal"><div class="ach-icon">⚡</div><div class="ach-num">35%</div><div class="ach-desc">Page load time reduced via Laravel optimization & asset minification</div></div>
+    <div class="glass-card ach-card reveal"><div class="ach-icon">🛒</div><div class="ach-num">5+</div><div class="ach-desc">Shopify stores contributing to measurable client revenue growth</div></div>
     <div class="glass-card ach-card reveal"><div class="ach-icon">✅</div><div class="ach-num">99%+</div><div class="ach-desc">Uptime maintained via proactive monitoring & issue resolution</div></div>
-    
- 
   </div>
 </section>
 
 <section id="education">
   <div class="reveal"><div class="sec-label">Academic Background</div><h2 class="sec-title">Education</h2><div class="divider"></div></div>
   <div class="edu-card glass-card reveal"><div class="edu-year">2020–2023</div><div><div class="edu-degree">Bachelor of Computer Applications (BCA)</div><div class="edu-school">Bengaluru City University · Bapu Degree College</div><span class="edu-grade">CGPA: 8.73</span></div></div>
-  <div class="edu-card glass-card reveal"><div class="edu-year">2018–2020</div><div><div class="edu-degree">Senior Secondary (PUC)</div><div class="edu-school">Dept. of Pre-University Education · Bapu Composite PU College</div><span class="edu-grade">61 %</span></div></div>
-  <div class="edu-card glass-card reveal"><div class="edu-year">2017–2018</div><div><div class="edu-degree">Secondary Education (SSLC)</div><div class="edu-school">KSEAB · Holy Mother Convent & High School</div><span class="edu-grade">67 %</span></div></div>
+  <div class="edu-card glass-card reveal"><div class="edu-year">2018–2020</div><div><div class="edu-degree">Senior Secondary (PUC)</div><div class="edu-school">Dept. of Pre-University Education · Bapu Composite PU College</div><span class="edu-grade">61%</span></div></div>
+  <div class="edu-card glass-card reveal"><div class="edu-year">2017–2018</div><div><div class="edu-degree">Secondary Education (SSLC)</div><div class="edu-school">KSEAB · Holy Mother Convent & High School</div><span class="edu-grade">67%</span></div></div>
 </section>
 
 <section id="certifications">
