@@ -1,0 +1,12 @@
+title: Ajay's Portfolio
+description: A personal portfolio website
+theme: jekyll-theme-primer
+plugins:
+  - jekyll-github-metadata
+  - jekyll-seo-tag
+  - jekyll-coffeescript
+
+# Build settings
+source: .
+destination: _site
+future: false
